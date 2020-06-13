@@ -25,7 +25,10 @@ def initialization(mesh, subdomains, boundaries):
 
     I = Identity(mesh.topology().dim())
 
-    C = FunctionSpace(mesh, "DG", 1)
+    C_cg = FiniteElement("CG", mesh.ufl_cell(), 1)
+    C_dg = FiniteElement("DG", mesh.ufl_cell(), 0)
+    mini = C_cg+C_dg
+    C = FunctionSpace(mesh, mini)
     C = BlockFunctionSpace([C])
 
     #TODO
